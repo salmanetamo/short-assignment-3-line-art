@@ -19,9 +19,12 @@ def draw_line_art(x1a, y1a, x1b, y1b, x2a, y2a, x2b, y2b, line_count):
     line_1_y_coord_list = get_intermediate_values(y1a, y1b, line_count)
     line_2_y_coord_list = get_intermediate_values(y2a, y2b, line_count)
 
+    # Get list of colors
+    colors_list = get_intermediate_colors(line_count)
     reverse_index = line_count
     #Drawing the intermediate lines
     for i in range(line_count):
+        set_stroke_color(colors_list[i][0], colors_list[i][1], colors_list[i][2])
         draw_line(line_1_x_coord_list[i], line_1_y_coord_list[i], line_2_x_coord_list[reverse_index],
                   line_2_y_coord_list[reverse_index])
 
@@ -37,6 +40,21 @@ def get_intermediate_values(start_value, end_value, line_count):
     coordinates_list.append(end_value)
 
     return coordinates_list
+
+# Get the colors for the intermediate lines
+def get_intermediate_colors(line_count):
+    colors_list = []
+    red = 0
+    green = 0
+    blue = 1
+
+    for i in range(line_count):
+        colors_list.append([red, green, blue])
+        red += 1 / line_count
+        blue -= 1 / line_count
+
+    return colors_list
+
 
 
 def main():
